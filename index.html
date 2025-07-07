@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Game Matematika</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', monospace;
+      background-color: #1a0000;
+      background-image: 
+        url('bat-pixel.png'),     /* hiasan kelelawar */
+        url('bulan-merah.png'),   /* hiasan bulan merah */
+        url('dracula-pixel.png'); /* dracula utama di tengah */
+      background-repeat: no-repeat, no-repeat, no-repeat;
+      background-position: top left, top right, center center;
+      background-size: 120px, 180px, cover;
+      color: #f4f4f4;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px #000;
+    }
+
+    .dracula-title {
+      font-size: 36px;
+      color: #B22222;
+      text-shadow: 2px 2px #000;
+      margin-top: 30px; /* jarak diperlebar */
+      margin-bottom: 20px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #8B0000;
+      border-radius: 12px;
+      padding: 30px;
+      width: fit-content;
+      margin: auto;
+      box-shadow: 0 0 25px #8B0000;
+    }
+
+    .input-wrapper input {
+      padding: 12px;
+      border: none;
+      border-bottom: 2px solid #FF0000;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+      width: 250px;
+      margin-bottom: 20px;
+      outline: none;
+      text-align: center;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #ffcccc;
+    }
+
+    .input-wrapper button {
+      background: #8B0000;
+      border: none;
+      padding: 12px 24px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-family: 'Press Start 2P', monospace;
+      transition: 0.3s;
+    }
+
+    .input-wrapper button:hover {
+      background: #B22222;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Game Matematika</h1>
+    <div class="dracula-title">229511</div>
+
+    <div class="input-wrapper">
+      <input type="text" id="nama" placeholder="Masukkan Nama!" />
+      <br>
+      <button onclick="lanjut()">Melanjutkan</button>
+    </div>
+  </div>
+
+  <script>
+    function lanjut() {
+      const nama = document.getElementById("nama").value.trim();
+      if (nama) {
+        localStorage.setItem("nama", nama);
+        window.location.href = "pilih-jenjang.html";
+      } else {
+        alert("Silakan masukkan nama terlebih dahulu.");
+      }
+    }
+  </script>
+</body>
+</html>

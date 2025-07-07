@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pilih Jenjang</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', monospace;
+      background-color: #1a0000; /* merah gelap ala tema Dracula */
+      color: #fff;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 100px;
+      text-shadow: 2px 2px #000;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .btn {
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 15px;
+      font-size: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+      box-shadow: 0 0 10px #B22222;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #B22222;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pilih Jenjang Pendidikan</h1>
+
+  <div class="button-container">
+    <button class="btn" onclick="mulai('sd')">SD</button>
+    <button class="btn" onclick="mulai('smp')">SMP</button>
+    <button class="btn" onclick="mulai('sma')">SMA</button>
+  </div>
+
+  <script>
+    function mulai(jenjang) {
+      const nama = localStorage.getItem("nama") || "anonim";
+      window.location.href = `soal.html?jenjang=${jenjang}&nama=${encodeURIComponent(nama)}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaderboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #1a0000;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 5px #B22222;
+    }
+
+    .tab-btn.active {
+      background-color: #B22222;
+    }
+
+    table {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      border-collapse: collapse;
+      font-size: 10px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid white;
+      padding: 6px 4px;
+      word-break: break-word;
+    }
+
+    th {
+      background-color: #8B0000;
+      font-size: 9px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #250000;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #330000;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #8B0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Press Start 2P', monospace;
+      cursor: pointer;
+      box-shadow: 0 0 10px #B22222;
+      font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+      table {
+        font-size: 8px;
+      }
+      th, td {
+        padding: 4px;
+      }
+      .tab-btn {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .back-btn {
+        font-size: 9px;
+        padding: 8px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>LEADERBOARD</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="tampil('sd')">SD</button>
+    <button class="tab-btn" onclick="tampil('smp')">SMP</button>
+    <button class="tab-btn" onclick="tampil('sma')">SMA</button>
+  </div>
+
+  <table id="tabel-leaderboard">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Skor</th>
+        <th>Waktu</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <button class="back-btn" onclick="kembali()">Kembali</button>
+
+  <script>
+    function formatWaktu(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const menit = String(Math.floor(totalSec / 60)).padStart(2, '0');
+      const detik = String(totalSec % 60).padStart(2, '0');
+      const milidetik = String(ms % 1000).padStart(3, '0').slice(0, 2);
+      return `${menit}:${detik}.${milidetik}`;
+    }
+
+    function tampil(jenjang) {
+      // Tombol aktif
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tab-btn[onclick="tampil('${jenjang}')"]`).classList.add('active');
+
+      const data = JSON.parse(localStorage.getItem('leaderboard_' + jenjang)) || [];
+
+      const tbody = document.querySelector('#tabel-leaderboard tbody');
+      tbody.innerHTML = "";
+
+      data.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.nama || 'anonim'}</td>
+          <td>${item.skor ?? 0}</td>
+          <td>${formatWaktu(item.waktu ?? 0)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function kembali() {
+      window.location.href = 'pilih-jenjang.html';
+    }
+
+    // Tampilkan leaderboard SD default saat pertama kali
+    tampil('sd');
+  </script>
+</body>
+</html>
